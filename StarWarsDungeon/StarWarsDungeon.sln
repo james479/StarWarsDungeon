@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.1300
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWarsDungeon", "StarWarsDungeon\StarWarsDungeon.csproj", "{EEB6A2A7-574D-435B-A001-F928D1BC9E46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWarsLibrary", "StarWarsLibrary\StarWarsLibrary.csproj", "{F80FEDC6-5767-478D-9D58-760673420E22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{93F75302-D50E-43B8-82BA-5CA1F6EC8A84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{EEB6A2A7-574D-435B-A001-F928D1BC9E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB6A2A7-574D-435B-A001-F928D1BC9E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEB6A2A7-574D-435B-A001-F928D1BC9E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80FEDC6-5767-478D-9D58-760673420E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80FEDC6-5767-478D-9D58-760673420E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80FEDC6-5767-478D-9D58-760673420E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80FEDC6-5767-478D-9D58-760673420E22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F75302-D50E-43B8-82BA-5CA1F6EC8A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F75302-D50E-43B8-82BA-5CA1F6EC8A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F75302-D50E-43B8-82BA-5CA1F6EC8A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F75302-D50E-43B8-82BA-5CA1F6EC8A84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
