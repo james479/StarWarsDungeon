@@ -45,7 +45,6 @@
     <Compile Include="Hero.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SideCharacter.cs" />
     <Compile Include="Villian.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>

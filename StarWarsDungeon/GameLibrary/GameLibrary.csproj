@@ -41,13 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisplayMenuOptions.cs" />
     <Compile Include="GameWeaponsList.cs" />
     <Compile Include="HeroCharacters.cs" />
     <Compile Include="HeroType.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="PhaseOneGame.cs" />
     <Compile Include="Planets.cs" />
+    <Compile Include="PlayerActions.cs" />
+    <Compile Include="PlayerUpgrades.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SideCharacters.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StarWarsLibrary\StarWarsLibrary.csproj">

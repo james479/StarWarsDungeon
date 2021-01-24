@@ -41,16 +41,22 @@ namespace StarWarsLibrary
             EquippedWeapon = equippedWeapon;
             //storing equipped weapon in weapon inventory, player will only start with one weapon
             WeaponUpgrades = weaponUpgrades;
-            WeaponInventory = new List<Weapon>();
+            WeaponInventory = new List<Weapon>() { equippedWeapon };
         }
 
         //hero will be attacker, villian will be defender
-        public void Attack(Villian villain)
+        public int Attack(Villian villain)
         {
             Random rand = new Random();
             int damage = rand.Next(MaxHitDamage + 1) * EquippedWeapon.DamageMultiplier;
             villain.Life -= damage;
             Score += damage * 100;  //incresing players score
+            return damage;
+        }
+
+        public override string ToString()
+        {
+            return string.Format($"Name: {Name}\n*************\nLife: {Life}Armour: {Armour}\nMax Life: {MaxLife}\nCredits: {Credits}\nScore: {Score}");
         }
     }
 }

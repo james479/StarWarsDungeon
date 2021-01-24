@@ -19,7 +19,7 @@ namespace StarWarsLibrary
         }
 
         //villian will be attacker and hero will be defender
-        public void Attack(Hero hero)
+        public int Attack(Hero hero)
         {
             Random rand = new Random();
             int damage = rand.Next(MaxHitDamage + 1);
@@ -44,6 +44,12 @@ namespace StarWarsLibrary
             {
                 hero.Life -= damage;
             }
+            return damage;
+        }
+
+        public override string ToString()
+        {
+            return string.Format($"Name: {Name}\n**************\nLife: {Life}");
         }
     }
 }

@@ -10,10 +10,9 @@ namespace GameLibrary
     public interface IGame
     {
         Hero Player { get; set; }
-        List<Villian> Villians { get; set;}
-        List<Planet> Planets { get; set; }
-        SideCharacter Ally { get; set; }
+        List<Planet> PlanetsInGame { get; set; }
+        Character Ally { get; set; }
 
-        void StartGame();
+        int StartGame();
     }
 }
