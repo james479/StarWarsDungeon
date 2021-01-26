@@ -54,6 +54,10 @@
       <Project>{93f75302-d50e-43b8-82ba-5ca1f6ec8a84}</Project>
       <Name>GameLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StarWarsLibrary\StarWarsLibrary.csproj">
+      <Project>{f80fedc6-5767-478d-9d58-760673420e22}</Project>
+      <Name>StarWarsLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

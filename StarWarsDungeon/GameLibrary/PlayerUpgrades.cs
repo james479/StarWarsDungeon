@@ -37,6 +37,12 @@ namespace GameLibrary
             player.Score += score;
         }
 
+        //add credits
+        public static void AddCredits(Hero player, int credits)
+        {
+            player.Credits += credits;
+        }
+
         //upgrade weapon
         public static void UpgradeWeapon(Hero player, Weapon weaponToUpgrade)
         {

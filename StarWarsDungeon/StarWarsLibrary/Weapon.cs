@@ -19,5 +19,10 @@ namespace StarWarsLibrary
             DamageMultiplier = damageMultiplier;
             Cost = cost;
         }
+
+        public override string ToString()
+        {
+            return string.Format($"{Name}");
+        }
     }
 }

@@ -7,7 +7,7 @@ using StarWarsLibrary;
 
 namespace GameLibrary
 {
-    class PhaseOneGame : IGame
+    public class PhaseOneGame : IGame
     {
         public Hero Player { get; set; }
         public List<Planet> PlanetsInGame { get; set; }
@@ -33,7 +33,7 @@ namespace GameLibrary
 
         public int StartGame()
         {
-            Console.WriteLine(Player.Story);
+            Console.WriteLine(Player.Story + "\n");
 
             //flags that will determine direction of the game
             bool defeatedOneVillian = false;    //flag to check if one villian is defeated to determine if hero meets ally
@@ -47,7 +47,9 @@ namespace GameLibrary
                 //checking to see if hero as met ally, will not meet ally until one planet is won
                 if (!meetAlly && defeatedOneVillian)
                 {
-                    Console.WriteLine(Ally.Story);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(Ally.Story + "\n");
+                    Console.ResetColor();
                     meetAlly = true;
                 }
 
@@ -57,7 +59,7 @@ namespace GameLibrary
                 int userChoice;
                 if (Int32.TryParse(userInputChoice, out userChoice))
                 {
-                    if (userChoice < 1 || userChoice > PlanetsInGame.Count + 1)
+                    if (userChoice < 1 || userChoice > PlanetsInGame.Count)
                     {
                         Console.WriteLine("Invalid Choice");
                     }
@@ -100,6 +102,7 @@ namespace GameLibrary
                         if (meetAlly)
                         {
                             DisplayMenuOptions.DisplayItemsToBuy(FighterType);
+                            PlayerActions.BuyUpgrades(Player, FighterType, Ally);
                         }
                         else
                         {
@@ -120,19 +123,24 @@ namespace GameLibrary
 
             if (phaseWon)
             {
-                Console.WriteLine("Hondo: It's been fun. Congratulations on your battles won. I must depart you and seek my new operation in the " +
-                    "outer rim. Good luck to you!");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\nHondo: It's been fun. Congratulations on your battles won. I must depart you and seek my new operation in the " +
+                    "outer rim. Good luck to you!\n");
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Congratutions! You have conquered this phase of the game. Great work and may the force be with you!");
                 Console.WriteLine("Your life has increased by 50 points");
                 Console.WriteLine("Your max life has increased by 20 points");
                 Console.WriteLine("Your armour has increased by 20 points");
                 Console.WriteLine("Your max hit damage has increased by 20 points");
-                Console.WriteLine("500 points have been added to your score");
+                Console.WriteLine("You have been awarded 500 credits");
+                Console.WriteLine("500 points have been added to your score\n");
+                Console.ResetColor();
 
                 PlayerUpgrades.AddHealth(Player, 50);
                 PlayerUpgrades.AddMaxHealth(Player, 20);
                 PlayerUpgrades.AddArmour(Player, 20);
                 PlayerUpgrades.AddMaxHitDamage(Player, 20);
+                PlayerUpgrades.AddCredits(Player, 500);
                 PlayerUpgrades.AddScore(Player, 500);
 
                 return 0;

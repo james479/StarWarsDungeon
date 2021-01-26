@@ -56,7 +56,7 @@ namespace StarWarsLibrary
 
         public override string ToString()
         {
-            return string.Format($"Name: {Name}\n*************\nLife: {Life}Armour: {Armour}\nMax Life: {MaxLife}\nCredits: {Credits}\nScore: {Score}");
+            return string.Format($"Name: {Name}\n*************\nLife: {Life}\nArmour: {Armour}\nMax Life: {MaxLife}\nCredits: {Credits}\nEquipped Weapon: {EquippedWeapon}\nScore: {Score}");
         }
     }
 }

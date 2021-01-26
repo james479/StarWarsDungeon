@@ -17,10 +17,17 @@ namespace GameLibrary
             bool villianWins = false;
             bool retreat = false;
 
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("\n" + villian.Story);
+            Console.ResetColor();
             do
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\n" + player);
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n" + villian + "\n");
+                Console.ResetColor();
+
                 //display options
                 DisplayMenuOptions.DisplayFightOptions();
                 string userInputOption = Console.ReadLine();
@@ -35,23 +42,40 @@ namespace GameLibrary
                             int villianDamage = player.Attack(villian);
                             if (villian.Life > 0)  //if villian isn't defeated
                             {
-                                Console.WriteLine($"{villian.Name} was struck by {player.Name} for {villianDamage} points.");
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                Console.WriteLine($"\n{villian.Name} was struck by {player.Name} for {villianDamage} points.");
+                                Console.ResetColor();
                             }
                             else  //if villian is defeated
                             {
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.WriteLine($"\nYou have defeated {villian.Name}!");
+                                Console.WriteLine("You have been awarded 10 points of health, 10 points of max life and 10 points of armour and 300 credits!\n");
+                                Console.ResetColor();
+                                PlayerUpgrades.AddHealth(player, 10);
+                                PlayerUpgrades.AddMaxHealth(player, 10);
+                                PlayerUpgrades.AddCredits(player, 300);
+                                PlayerUpgrades.AddArmour(player, 10);
+
+                                PlayerUpgrades.AddScore(player, 500);
                                 playerWins = true;
                             }
 
                             //villian attacts hero if villian hasn't been defeated
-                            if(villian.Life > 0)
+                            if(!playerWins)
                             {
                                 int heroDamage = villian.Attack(player);
                                 if (player.Life > 0)
                                 {
+                                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
                                     Console.WriteLine($"{player.Name} was struck by {villian.Name} for {heroDamage} points.");
+                                    Console.ResetColor();
                                 }
                                 else
                                 {
+                                    Console.ForegroundColor = ConsoleColor.Blue;
+                                    Console.WriteLine($"You have been defeated by {villian.Name}\n");
+                                    Console.ResetColor();
                                     villianWins = true;
                                 }
                             }
@@ -91,7 +115,7 @@ namespace GameLibrary
         //method when player visits ally looking for upgrades
         public static void BuyUpgrades(Hero player, HeroType fighterType, Character ally)
         {
-            Console.WriteLine($"{ally.Name}: Hello {player.Name}. Here are some items that will help you on your journey.\n");
+            Console.WriteLine($"\n\n{ally.Name}: Hello {player.Name}. Here are some items that will help you on your journey.\n");
             Console.WriteLine(player + "\n");
 
             bool exit = false;
@@ -110,6 +134,10 @@ namespace GameLibrary
                             {
                                 PlayerUpgrades.AddHealth(player, 20);
                                 player.Credits -= 100;
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.WriteLine($"\n\nYou have purchased 20 points of health\n");
+                                Console.ResetColor();
+                                Console.WriteLine(player + "\n");
                             }
                             else
                             {
@@ -123,6 +151,10 @@ namespace GameLibrary
                             {
                                 PlayerUpgrades.AddArmour(player, 20);
                                 player.Credits -= 200;
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.WriteLine($"\n\nYou have purchased 20 points of armour\n");
+                                Console.ResetColor();
+                                Console.WriteLine(player + "\n");
                             }
                             else
                             {
@@ -152,6 +184,10 @@ namespace GameLibrary
                                                 player.EquippedWeapon = weaponToBuy;
                                                 player.WeaponInventory.Add(player.WeaponUpgrades.Dequeue());
                                                 player.Credits -= weaponToBuy.Cost;
+                                                Console.ForegroundColor = ConsoleColor.Blue;
+                                                Console.WriteLine($"\n\nYou have purchased {player.EquippedWeapon}!\n");
+                                                Console.ResetColor();
+                                                Console.WriteLine(player + "\n");
                                             }
                                             //not enough credits to buy
                                             else
