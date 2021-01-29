@@ -134,7 +134,7 @@ namespace GameLibrary
                     Player.WeaponInventory.Add(darksaber);   //adding darksaber to inventory
 
                     //giving player an option to equip darksaber
-                    bool isValidWeaponChoice = false
+                    bool isValidWeaponChoice = false;
                     do
                     {
                         Console.WriteLine("Do you want to equipped the Darksaber? Y/N");
@@ -179,6 +179,17 @@ namespace GameLibrary
                 PlayerUpgrades.AddMaxHitDamage(Player, 30);
                 PlayerUpgrades.AddCredits(Player, 1000);
                 PlayerUpgrades.AddScore(Player, 1000);
+
+                return 0;
+            }
+
+            else if (playerDead)
+            {
+                return 1;
+            }
+            else   //player quit game
+            {
+                return 2;
             }
         }
     }
