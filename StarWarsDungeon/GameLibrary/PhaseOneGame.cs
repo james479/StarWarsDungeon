@@ -91,6 +91,9 @@ namespace GameLibrary
 
                             //player retreats
                             default:
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.WriteLine($"\nYou have retreated from planet {PlanetsInGame[userChoice - 1].Name}.\n");
+                                Console.ResetColor();
                                 break;
                         }
                     }
@@ -136,8 +139,8 @@ namespace GameLibrary
                 Console.WriteLine("500 points have been added to your score\n");
                 Console.ResetColor();
 
-                PlayerUpgrades.AddHealth(Player, 50);
                 PlayerUpgrades.AddMaxHealth(Player, 20);
+                PlayerUpgrades.AddHealth(Player, 50);
                 PlayerUpgrades.AddArmour(Player, 20);
                 PlayerUpgrades.AddMaxHitDamage(Player, 20);
                 PlayerUpgrades.AddCredits(Player, 500);

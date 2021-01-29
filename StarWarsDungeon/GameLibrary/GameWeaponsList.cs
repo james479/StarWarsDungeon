@@ -34,5 +34,10 @@ namespace GameLibrary
 
             return jediWeapons;
         }
+
+        public static Weapon getDarksaber()
+        {
+            return new Weapon("Darksaber", 6, 0);
+        }
     }
 }
