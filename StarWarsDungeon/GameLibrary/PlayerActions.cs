@@ -48,6 +48,7 @@ namespace GameLibrary
                             }
                             else  //if villian is defeated
                             {
+                                System.Threading.Thread.Sleep(800);
                                 Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.WriteLine($"\nYou have defeated {villian.Name}!");
                                 Console.WriteLine("You have been awarded 10 points of health, 10 points of max life and 10 points of armour and 300 credits!\n");
@@ -67,6 +68,7 @@ namespace GameLibrary
                                 int heroDamage = villian.Attack(player);
                                 if (player.Life > 0)
                                 {
+                                    System.Threading.Thread.Sleep(800);
                                     Console.ForegroundColor = ConsoleColor.DarkMagenta;
                                     Console.WriteLine($"{player.Name} was struck by {villian.Name} for {heroDamage} points.");
                                     Console.ResetColor();
@@ -115,12 +117,15 @@ namespace GameLibrary
         //method when player visits ally looking for upgrades
         public static void BuyUpgrades(Hero player, HeroType fighterType, Character ally)
         {
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine($"\n\n{ally.Name}: Hello {player.Name}. Here are some items that will help you on your journey.\n");
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine(player + "\n");
 
             bool exit = false;
             do
             {
+                System.Threading.Thread.Sleep(500);
                 DisplayMenuOptions.DisplayItemsToBuy(fighterType);
                 string userChoiceInput = Console.ReadLine();
                 int userChoice;
@@ -135,12 +140,14 @@ namespace GameLibrary
                                 PlayerUpgrades.AddHealth(player, 20);
                                 player.Credits -= 100;
                                 Console.ForegroundColor = ConsoleColor.Blue;
+                                System.Threading.Thread.Sleep(500);
                                 Console.WriteLine($"\n\nYou have purchased 20 points of health\n");
                                 Console.ResetColor();
                                 Console.WriteLine(player + "\n");
                             }
                             else
                             {
+                                System.Threading.Thread.Sleep(500);
                                 Console.WriteLine("You do not have enought credits to purchase this item");
                             }
                             break;
@@ -152,12 +159,14 @@ namespace GameLibrary
                                 PlayerUpgrades.AddArmour(player, 20);
                                 player.Credits -= 200;
                                 Console.ForegroundColor = ConsoleColor.Blue;
+                                System.Threading.Thread.Sleep(500);
                                 Console.WriteLine($"\n\nYou have purchased 20 points of armour\n");
                                 Console.ResetColor();
                                 Console.WriteLine(player + "\n");
                             }
                             else
                             {
+                                System.Threading.Thread.Sleep(500);
                                 Console.WriteLine("You do not have enought credits to purchase this item");
                             }
                             break;
@@ -167,6 +176,7 @@ namespace GameLibrary
                             bool exitWeaponsUpgrade = false;
                             do
                             {
+                                System.Threading.Thread.Sleep(500);
                                 DisplayMenuOptions.DisplayWeaponToUpgrade(player);
                                 string userUpgradeOption = Console.ReadLine();
                                 int upgradeOption;
@@ -185,6 +195,7 @@ namespace GameLibrary
                                                 player.WeaponInventory.Add(player.WeaponUpgrades.Dequeue());
                                                 player.Credits -= weaponToBuy.Cost;
                                                 Console.ForegroundColor = ConsoleColor.Blue;
+                                                System.Threading.Thread.Sleep(800);
                                                 Console.WriteLine($"\n\nYou have purchased {player.EquippedWeapon}!\n");
                                                 Console.ResetColor();
                                                 Console.WriteLine(player + "\n");
@@ -192,12 +203,14 @@ namespace GameLibrary
                                             //not enough credits to buy
                                             else
                                             {
+                                                System.Threading.Thread.Sleep(500);
                                                 Console.WriteLine("You do not have enough credits to purchase this item.");
                                             }
                                             break;
                                         //view weapon stats
                                         case 2:
                                             Weapon weaponToDisplay = player.WeaponUpgrades.Peek();
+                                            System.Threading.Thread.Sleep(500);
                                             DisplayMenuOptions.DisplayWeaponStats(weaponToDisplay);
                                             break;
                                         //user quits
@@ -206,12 +219,14 @@ namespace GameLibrary
                                             break;
                                         //invalid int
                                         default:
+                                            System.Threading.Thread.Sleep(500);
                                             Console.WriteLine("Invalid option");
                                             break;
                                     }
                                 }
                                 else
                                 {
+                                    System.Threading.Thread.Sleep(500);
                                     Console.WriteLine("Invalid option");
                                 }
                                 
@@ -225,12 +240,14 @@ namespace GameLibrary
 
                         //invalid int
                         default:
+                            System.Threading.Thread.Sleep(500);
                             Console.WriteLine("Invalid option");
                             break;
                     }
                 }
                 else
                 {
+                    System.Threading.Thread.Sleep(500);
                     Console.WriteLine("Invalid option");
                 }
 

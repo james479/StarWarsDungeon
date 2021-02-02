@@ -14,10 +14,10 @@ namespace GameLibrary
         {
             //use a queue since only one upgrade at a time in order of upgrades
             Queue<Weapon> mandalorianWeapons = new Queue<Weapon>();
-            mandalorianWeapons.Enqueue(new Weapon("E11 Blaster", 1, 0));
-            mandalorianWeapons.Enqueue(new Weapon("DH-17 Blaster", 2, 200));
-            mandalorianWeapons.Enqueue(new Weapon("DL-44 Blaster", 3, 300));
-            mandalorianWeapons.Enqueue(new Weapon("DDC Defender Blaster", 4, 400));
+            mandalorianWeapons.Enqueue(new Weapon("E11 Blaster", 2, 0));
+            mandalorianWeapons.Enqueue(new Weapon("DH-17 Blaster", 3, 200));
+            mandalorianWeapons.Enqueue(new Weapon("DL-44 Blaster", 4, 300));
+            mandalorianWeapons.Enqueue(new Weapon("DDC Defender Blaster", 5, 400));
                   
             return mandalorianWeapons;
         }

@@ -23,7 +23,7 @@ namespace StarWarsLibrary
         {
             Random rand = new Random();
             int damage = rand.Next(MaxHitDamage + 1);
-
+            System.Threading.Thread.Sleep(600);
             //check to see if hero has armour, if hero has armour, will take away armour score first
             if(hero.Armour > 0)
             {

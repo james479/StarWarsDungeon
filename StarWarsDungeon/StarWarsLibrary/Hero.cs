@@ -49,6 +49,7 @@ namespace StarWarsLibrary
         {
             Random rand = new Random();
             int damage = rand.Next(MaxHitDamage + 1) * EquippedWeapon.DamageMultiplier;
+            System.Threading.Thread.Sleep(600);
             villain.Life -= damage;
             Score += damage * 100;  //incresing players score
             return damage;

@@ -7,7 +7,7 @@ using StarWarsLibrary;
 
 namespace GameLibrary
 {
-    class PhaseTwoGame : IGame
+    public class PhaseTwoGame : IGame
     {
         public Hero Player { get; set; }
         public List<Planet> PlanetsInGame { get; set; }
@@ -40,11 +40,14 @@ namespace GameLibrary
             bool playerDead = false;   //will return to the main program and give the player an option to play again
 
             //introducing the second phase of the game
-
-
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            System.Threading.Thread.Sleep(800);
+            Console.WriteLine(Ally.Story + "\n");
+            Console.ResetColor();
             //starting second phase of game
             do
             {
+                System.Threading.Thread.Sleep(500);
                 DisplayMenuOptions.DisplayMainOptions(PlanetsInGame, Ally, true);
                 string userInputChoice = Console.ReadLine();
 
@@ -54,6 +57,7 @@ namespace GameLibrary
                 {
                     if (userChoice < 1 || userChoice > PlanetsInGame.Count)
                     {
+                        System.Threading.Thread.Sleep(500);
                         Console.WriteLine("Invalid Choice");
                     }
                     else
@@ -76,6 +80,7 @@ namespace GameLibrary
                                     if (!PlanetsInGame.Any())
                                     {
                                         Console.ForegroundColor = ConsoleColor.Blue;
+                                        System.Threading.Thread.Sleep(500);
                                         Console.WriteLine($"\nHelp liberate {(FighterType == HeroType.MANDALORIAN ? "your home planet Mandalore" : "the planet Manadlore")} from the clutches of " +
                                             $"Darth Maul.\n");
                                         Console.ResetColor();
@@ -93,6 +98,7 @@ namespace GameLibrary
                             //player retreats
                             default:
                                 Console.ForegroundColor = ConsoleColor.Blue;
+                                System.Threading.Thread.Sleep(500);
                                 Console.WriteLine($"\nYou have retreated from planet {PlanetsInGame[userChoice - 1].Name}.\n");
                                 Console.ResetColor();
                                 break;
@@ -104,7 +110,6 @@ namespace GameLibrary
                     //user selects buy items
                     if (userInputChoice == "B" || userInputChoice == "b")
                     {
-                        DisplayMenuOptions.DisplayItemsToBuy(FighterType);
                         PlayerActions.BuyUpgrades(Player, FighterType, Ally);
                     }
 
@@ -115,6 +120,7 @@ namespace GameLibrary
                     }
                     else
                     {
+                        System.Threading.Thread.Sleep(500);
                         Console.WriteLine("Invalid Choice");
                     }
 
@@ -127,8 +133,9 @@ namespace GameLibrary
                 if (FighterType == HeroType.MANDALORIAN)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("\nBo-Katan: You have liberated our home planet and won the darksaber from Darth Maul. You are now the Mandalore, ruler of our planet. All of the Clans of" +
-                        "Mandalore will now pledge their allegiance to you.");
+                    System.Threading.Thread.Sleep(500);
+                    Console.WriteLine("\nBo-Katan: You have liberated our home planet and won the darksaber from Darth Maul. You are now the Mandalore, ruler of our planet. All of the Clans of " +
+                        "Mandalore will now pledge their allegiance to you.\n");
                     Console.ResetColor();
                     Weapon darksaber = GameWeaponsList.getDarksaber();
                     Player.WeaponInventory.Add(darksaber);   //adding darksaber to inventory
@@ -137,7 +144,10 @@ namespace GameLibrary
                     bool isValidWeaponChoice = false;
                     do
                     {
-                        Console.WriteLine("Do you want to equipped the Darksaber? Y/N");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        System.Threading.Thread.Sleep(500);
+                        Console.Write("Do you want to equipped the Darksaber? Y/N");
+                        Console.ResetColor();
                         string choice = Console.ReadLine();
                         switch (choice)
                         {
@@ -162,6 +172,14 @@ namespace GameLibrary
                         }
                     } while (!isValidWeaponChoice);
 
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    System.Threading.Thread.Sleep(800);
+                    Console.WriteLine("Bo-Katan: Thank you Jedi for helping liberating Madalore. All clans of Mandalore" +
+                        "are forever in your debt.");
+                    Console.ResetColor();
                 }
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Congratutions! You have conquered this phase of the game. Great work and may the force be with you!");

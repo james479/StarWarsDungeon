@@ -21,7 +21,7 @@ namespace GameLibrary
             Queue<Weapon> weaponList = GameWeaponsList.getJediWeapons();
             Weapon equippedWeapon = weaponList.Dequeue();
 
-            return new Hero(name, jediStory, 80, 100, 0, 15, 0, 0, equippedWeapon, weaponList);
+            return new Hero(name, jediStory, 100, 100, 0, 15, 0, 0, equippedWeapon, weaponList);
         } 
         
         public static Hero GetNewMandalorianCharacter(string name)
@@ -33,7 +33,7 @@ namespace GameLibrary
             Queue<Weapon> weaponList = GameWeaponsList.getMandalorianWeapons();
             Weapon equippedWeapn = weaponList.Dequeue();
 
-            return new Hero(name, mandalorianStory, 60, 100, 20, 10, 0, 0, equippedWeapn, weaponList);
+            return new Hero(name, mandalorianStory, 60, 100, 50, 10, 0, 0, equippedWeapn, weaponList);
         }
     }
 }

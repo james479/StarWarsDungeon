@@ -48,11 +48,12 @@ namespace GameLibrary
                 if (!meetAlly && defeatedOneVillian)
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
+                    System.Threading.Thread.Sleep(800);
                     Console.WriteLine(Ally.Story + "\n");
                     Console.ResetColor();
                     meetAlly = true;
                 }
-
+                System.Threading.Thread.Sleep(800);
                 DisplayMenuOptions.DisplayMainOptions(PlanetsInGame, Ally, meetAlly);
                 string userInputChoice = Console.ReadLine();
 
@@ -61,6 +62,7 @@ namespace GameLibrary
                 {
                     if (userChoice < 1 || userChoice > PlanetsInGame.Count)
                     {
+                        System.Threading.Thread.Sleep(500);
                         Console.WriteLine("Invalid Choice");
                     }
                     else
@@ -92,6 +94,7 @@ namespace GameLibrary
                             //player retreats
                             default:
                                 Console.ForegroundColor = ConsoleColor.Blue;
+                                System.Threading.Thread.Sleep(500);
                                 Console.WriteLine($"\nYou have retreated from planet {PlanetsInGame[userChoice - 1].Name}.\n");
                                 Console.ResetColor();
                                 break;
@@ -104,11 +107,11 @@ namespace GameLibrary
                     {
                         if (meetAlly)
                         {
-                            DisplayMenuOptions.DisplayItemsToBuy(FighterType);
                             PlayerActions.BuyUpgrades(Player, FighterType, Ally);
                         }
                         else
                         {
+                            System.Threading.Thread.Sleep(500);
                             Console.WriteLine("Invalid Choice");
                         }
                     }
@@ -118,6 +121,7 @@ namespace GameLibrary
                     }
                     else
                     {
+                        System.Threading.Thread.Sleep(500);
                         Console.WriteLine("Invalid Choice");
                     }
                 }
@@ -127,9 +131,12 @@ namespace GameLibrary
             if (phaseWon)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
+                System.Threading.Thread.Sleep(800);
                 Console.WriteLine("\nHondo: It's been fun. Congratulations on your battles won. I must depart you and seek my new operation in the " +
                     "outer rim. Good luck to you!\n");
                 Console.ForegroundColor = ConsoleColor.Blue;
+                System.Threading.Thread.Sleep(800);
+                System.Threading.Thread.Sleep(800);
                 Console.WriteLine("Congratutions! You have conquered this phase of the game. Great work and may the force be with you!");
                 Console.WriteLine("Your life has increased by 50 points");
                 Console.WriteLine("Your max life has increased by 20 points");

@@ -21,10 +21,11 @@ namespace StarWarsDungeon
                 "better blasters throughout the game.\nA Mandorian will start out with not as much health but some armour. May the force be with you.\n");
 
             Console.ResetColor();
-
+            System.Threading.Thread.Sleep(1000);
             Console.Write("Enter the name of your character: ");
             string name = Console.ReadLine();
 
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine("\nWould you like to play as a Jedi or Mandalorian?");
             Console.WriteLine("J)edi");
             Console.WriteLine("M)andalorian");
@@ -40,6 +41,7 @@ namespace StarWarsDungeon
                 }
                 else
                 {
+                    System.Threading.Thread.Sleep(500);
                     Console.WriteLine("Invalid choice! Try again");
                     Console.WriteLine("Would you like to play as a Jedi or Mandalorian?");
                     Console.WriteLine("J)edi");
@@ -52,7 +54,7 @@ namespace StarWarsDungeon
 
             //creating new player object and determing jedi or mandalorian
             HeroType heroType;
-            if(userChoice == ConsoleKey.J)
+            if (userChoice == ConsoleKey.J)
             {
                 heroType = HeroType.JEDI;
             }
@@ -63,11 +65,90 @@ namespace StarWarsDungeon
 
             Hero player = heroType == HeroType.JEDI ? HeroCharacters.GetNewJediCharacter(name) : HeroCharacters.GetNewMandalorianCharacter(name);
 
-            PhaseOneGame phaseOneGame = new PhaseOneGame(player, heroType);
-            int gameResult;
+            //start playing game
+            bool didPlayerQuit = PlayGame(player, heroType, 1);
 
-            gameResult = phaseOneGame.StartGame();
+            if(!didPlayerQuit)
+            {
+                System.Environment.Exit(1);
+            }
 
+            //execute phase 2 of game
+            didPlayerQuit = PlayGame(player, heroType, 2);
+        }
+
+        //method to play phase of a game
+        static bool PlayGame(Hero player, HeroType heroType, int phase)
+        {
+            bool playQuit = false;
+            bool defeatedLevel = false;
+            
+            //getting phase of the game to play
+
+            do
+            {
+                IGame game;
+                if (phase == 1)
+                {
+                    game = new PhaseOneGame(player, heroType);
+                }
+                else
+                {
+                    game = new PhaseTwoGame(player, heroType);
+                }
+                
+                int gameResult;
+
+                gameResult = game.StartGame();
+                switch (gameResult)
+                {
+                    //defeated level
+                    case 0:
+                        defeatedLevel = true;
+                        break;
+
+                    //player died, give optiont to play again
+                    case 1:
+                        bool validResponse = false;
+                        do
+                        {
+                            System.Threading.Thread.Sleep(500);
+                            Console.WriteLine("Do you want to play again? Y/N");
+                            string input = Console.ReadLine();
+                            switch (input)
+                            {
+                                case "Y":
+                                case "y":
+                                    System.Threading.Thread.Sleep(500);
+                                    Console.WriteLine("Playing again...");
+                                    validResponse = true;
+                                    break;
+                                case "N":
+                                case "n":
+                                    playQuit = true;
+                                    validResponse = true;
+                                    break;
+                            }
+
+                        } while (!validResponse);
+                        break;
+                    case 2:
+                        playQuit = true;
+                        break;
+                    default:
+                        break;
+                }
+
+            } while (!playQuit && !defeatedLevel);
+
+            if (defeatedLevel)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
