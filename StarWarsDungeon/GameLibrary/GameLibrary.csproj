@@ -47,6 +47,7 @@
     <Compile Include="HeroType.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="PhaseOneGame.cs" />
+    <Compile Include="PhaseThreeGame.cs" />
     <Compile Include="PhaseTwoGame.cs" />
     <Compile Include="Planets.cs" />
     <Compile Include="PlayerActions.cs" />

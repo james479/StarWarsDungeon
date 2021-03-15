@@ -22,63 +22,91 @@ namespace StarWarsDungeon
 
             Console.ResetColor();
             System.Threading.Thread.Sleep(1000);
-            Console.Write("Enter the name of your character: ");
-            string name = Console.ReadLine();
+            
 
-            System.Threading.Thread.Sleep(500);
-            Console.WriteLine("\nWould you like to play as a Jedi or Mandalorian?");
-            Console.WriteLine("J)edi");
-            Console.WriteLine("M)andalorian");
+            //start playing game
+            bool didPlayerQuit = false;
 
-            ConsoleKey userChoice;
-            bool valid = false;
-            do
+            while (!didPlayerQuit)
             {
-                userChoice = Console.ReadKey(true).Key;
-                if (userChoice == ConsoleKey.J || userChoice == ConsoleKey.M)
+                Console.Write("Enter the name of your character: ");
+                string name = Console.ReadLine();
+
+                System.Threading.Thread.Sleep(500);
+                Console.WriteLine("\nWould you like to play as a Jedi or Mandalorian?");
+                Console.WriteLine("J)edi");
+                Console.WriteLine("M)andalorian");
+
+                ConsoleKey userChoice;
+                bool valid = false;
+                do
                 {
-                    valid = true;
+                    userChoice = Console.ReadKey(true).Key;
+                    if (userChoice == ConsoleKey.J || userChoice == ConsoleKey.M)
+                    {
+                        valid = true;
+                    }
+                    else
+                    {
+                        System.Threading.Thread.Sleep(500);
+                        Console.WriteLine("Invalid choice! Try again");
+                        Console.WriteLine("Would you like to play as a Jedi or Mandalorian?");
+                        Console.WriteLine("J)edi");
+                        Console.WriteLine("M)andalorian");
+                    }
+
+                } while (!valid);
+
+                Console.WriteLine();
+
+                //creating new player object and determing jedi or mandalorian
+                HeroType heroType;
+                if (userChoice == ConsoleKey.J)
+                {
+                    heroType = HeroType.JEDI;
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(500);
-                    Console.WriteLine("Invalid choice! Try again");
-                    Console.WriteLine("Would you like to play as a Jedi or Mandalorian?");
-                    Console.WriteLine("J)edi");
-                    Console.WriteLine("M)andalorian");
+                    heroType = HeroType.MANDALORIAN;
                 }
 
-            } while (!valid);
+                Hero player = heroType == HeroType.JEDI ? HeroCharacters.GetNewJediCharacter(name) : HeroCharacters.GetNewMandalorianCharacter(name);
 
-            Console.WriteLine();
+                didPlayerQuit = PlayGame(player, heroType, 1, name);
 
-            //creating new player object and determing jedi or mandalorian
-            HeroType heroType;
-            if (userChoice == ConsoleKey.J)
-            {
-                heroType = HeroType.JEDI;
+                if (!didPlayerQuit)
+                {
+                    System.Environment.Exit(1);
+                }
+
+                //execute phase 2 of game
+                didPlayerQuit = PlayGame(player, heroType, 2, name);
+
+                if (!didPlayerQuit)
+                {
+                    System.Environment.Exit(1);
+                }
+
+                //execute phase 3 of the game
+                didPlayerQuit = PlayGame(player, heroType, 3, name);
+
+                if (!didPlayerQuit)
+                {
+                    System.Environment.Exit(1);
+                }
+
+                int playAgain = PlayAgain();
+
+                if (playAgain == 1)
+                {
+                    didPlayerQuit = true;
+                }
+               
             }
-            else
-            {
-                heroType = HeroType.MANDALORIAN;
-            }
-
-            Hero player = heroType == HeroType.JEDI ? HeroCharacters.GetNewJediCharacter(name) : HeroCharacters.GetNewMandalorianCharacter(name);
-
-            //start playing game
-            bool didPlayerQuit = PlayGame(player, heroType, 1);
-
-            if(!didPlayerQuit)
-            {
-                System.Environment.Exit(1);
-            }
-
-            //execute phase 2 of game
-            didPlayerQuit = PlayGame(player, heroType, 2);
         }
 
         //method to play phase of a game
-        static bool PlayGame(Hero player, HeroType heroType, int phase)
+        static bool PlayGame(Hero player, HeroType heroType, int phase, string name)
         {
             bool playQuit = false;
             bool defeatedLevel = false;
@@ -92,14 +120,19 @@ namespace StarWarsDungeon
                 {
                     game = new PhaseOneGame(player, heroType);
                 }
-                else
+                else if(phase == 2)
                 {
                     game = new PhaseTwoGame(player, heroType);
+                }
+                else
+                {
+                    game = new PhaseThreeGame(player, heroType);
                 }
                 
                 int gameResult;
 
                 gameResult = game.StartGame();
+
                 switch (gameResult)
                 {
                     //defeated level
@@ -121,6 +154,7 @@ namespace StarWarsDungeon
                                 case "y":
                                     System.Threading.Thread.Sleep(500);
                                     Console.WriteLine("Playing again...");
+                                    player = heroType == HeroType.JEDI ? HeroCharacters.GetNewJediCharacter(name) : HeroCharacters.GetNewMandalorianCharacter(name);
                                     validResponse = true;
                                     break;
                                 case "N":
@@ -149,6 +183,35 @@ namespace StarWarsDungeon
             {
                 return false;
             }
+        }
+
+        static int PlayAgain()
+        {
+            int response;
+            bool isVlaid = false;
+
+            do
+            {
+                Console.Write("Press 1 to quit or 2 to keep playing :");
+                if (Int32.TryParse(Console.ReadLine(), out response))
+                {
+                    if (response != 1 || response != 2)
+                    {
+                        Console.WriteLine("Invalid response");
+                    }
+                    else
+                    {
+                        isVlaid = true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid response");
+                }
+
+            } while (!isVlaid);
+
+            return response;
         }
     }
 }

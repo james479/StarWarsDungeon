@@ -12,6 +12,7 @@ namespace GameLibrary
         Hero Player { get; set; }
         List<Planet> PlanetsInGame { get; set; }
         Character Ally { get; set; }
+        HeroType FighterType { get; set; }
 
         int StartGame();
     }

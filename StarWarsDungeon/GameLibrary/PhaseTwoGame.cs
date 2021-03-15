@@ -14,6 +14,8 @@ namespace GameLibrary
         public Character Ally { get; set; }
         public HeroType FighterType { get; set; }
 
+        public int GameIteration { get; set; }
+
         //constructor
         public PhaseTwoGame(Hero player, HeroType fighterType)
         {

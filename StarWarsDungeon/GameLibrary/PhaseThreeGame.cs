@@ -7,7 +7,7 @@ using StarWarsLibrary;
 
 namespace GameLibrary
 {
-    public class PhaseOneGame : IGame
+    public class PhaseThreeGame : IGame
     {
         public Hero Player { get; set; }
         public List<Planet> PlanetsInGame { get; set; }
@@ -17,7 +17,7 @@ namespace GameLibrary
         public int GameIteration { get; set; }
 
         //constructor
-        public PhaseOneGame(Hero player, HeroType fighterType)
+        public PhaseThreeGame(Hero player, HeroType fighterType)
         {
             Player = player;
             FighterType = fighterType;
@@ -25,41 +25,36 @@ namespace GameLibrary
             //getting list of planet in game
             PlanetsInGame = new List<Planet>()
             {
-                Planets.GetDuroPlanet(),
-                Planets.GetDathomirPlanet()
+                Planets.GetMustafar(),
+                Planets.GetNaboo()
             };
 
             //getting ally
-            Ally = SideCharacters.GetHondoOhnaka();
+            Ally = SideCharacters.GetBobaFett();
         }
 
         public int StartGame()
         {
-            Console.WriteLine(Player.Story + "\n");
-
-            //flags that will determine direction of the game
-            bool defeatedOneVillian = false;    //flag to check if one villian is defeated to determine if hero meets ally
+            bool defeatedOneVillain = false;  //flag to see if one villian has been deafeated
             bool phaseWon = false;     //phase will be won when hero beats two villians on the two planets
             bool quitGame = false;     //game will quit if set to true
             bool playerDead = false;   //will return to the main program and give the player an option to play again
-            bool meetAlly = false;     //flag to check if hero meet ally, effects the display menu options
 
+            //introducing the second phase of the game
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            System.Threading.Thread.Sleep(800);
+            Console.WriteLine(Ally.Story + "\n");
+            Console.ResetColor();
+
+            //starting third phase of the game
             do
             {
-                //checking to see if hero as met ally, will not meet ally until one planet is won
-                if (!meetAlly && defeatedOneVillian)
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    System.Threading.Thread.Sleep(800);
-                    Console.WriteLine(Ally.Story + "\n");
-                    Console.ResetColor();
-                    meetAlly = true;
-                }
-                System.Threading.Thread.Sleep(800);
-                DisplayMenuOptions.DisplayMainOptions(PlanetsInGame, Ally, meetAlly);
+                System.Threading.Thread.Sleep(500);
+                DisplayMenuOptions.DisplayMainOptions(PlanetsInGame, Ally, true);
                 string userInputChoice = Console.ReadLine();
 
                 int userChoice;
+
                 if (Int32.TryParse(userInputChoice, out userChoice))
                 {
                     if (userChoice < 1 || userChoice > PlanetsInGame.Count)
@@ -67,64 +62,56 @@ namespace GameLibrary
                         System.Threading.Thread.Sleep(500);
                         Console.WriteLine("Invalid Choice");
                     }
+
                     else
                     {
-                        //player go to planet and fight villian occupying planet
+                        //go to planet and fight villain occupying planet
                         int result = PlayerActions.VisitPlanet(Player, PlanetsInGame[userChoice - 1].VillianOccupyingPlanet);
                         //switch based on what happend while visiting planet
                         switch (result)
                         {
-                            //if player defeats villian
                             case 0:
-                                //if first villian defeated in the phase of the game
-                                if (!defeatedOneVillian)
-                                {
-                                    defeatedOneVillian = true;
-                                    PlanetsInGame.RemoveAt(userChoice - 1);
-                                }
-                                else
+                                //check to seee if hero defeated one villian
+                                if (defeatedOneVillain)
                                 {
                                     phaseWon = true;
                                 }
+                                else
+                                {
+                                    PlanetsInGame.RemoveAt(userChoice - 1);
+                                    defeatedOneVillain = true;
+                                }
                                 break;
-
                             //if villian defeats hero
                             case 1:
                                 playerDead = true;
                                 break;
-
                             //player retreats
                             default:
                                 Console.ForegroundColor = ConsoleColor.Blue;
                                 System.Threading.Thread.Sleep(500);
                                 Console.WriteLine($"\nYou have retreated from planet {PlanetsInGame[userChoice - 1].Name}.\n");
                                 Console.ResetColor();
-                                break;
+                                break;   
                         }
                     }
                 }
+
                 else
                 {
+                    //user selecs buy items
                     if (userInputChoice == "B" || userInputChoice == "b")
                     {
-                        if (meetAlly)
-                        {
-                            PlayerActions.BuyUpgrades(Player, FighterType, Ally);
-                        }
-                        else
-                        {
-                            System.Threading.Thread.Sleep(500);
-                            Console.WriteLine("Invalid Choice");
-                        }
+                        PlayerActions.BuyUpgrades(Player, FighterType, Ally);
                     }
-                    else if (userInputChoice == "Q" || userInputChoice == "q")
+                    else if (userInputChoice == "Q" || userInputChoice == "b")
                     {
                         quitGame = true;
                     }
                     else
                     {
                         System.Threading.Thread.Sleep(500);
-                        Console.WriteLine("Invalid Choice");
+                        Console.WriteLine("Ivalid Choice");
                     }
                 }
 
@@ -134,12 +121,11 @@ namespace GameLibrary
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Threading.Thread.Sleep(800);
-                Console.WriteLine("\nHondo: It's been fun. Congratulations on your battles won. I must depart you and seek my new operation in the " +
-                    "outer rim. Good luck to you!\n");
+                Console.WriteLine($"\nBoba Fett: Congraulations kid...You are the biggest hero in the galaxy. The {(FighterType == HeroType.JEDI? "Jedi" : "Mandalorians")} should be proud!\n");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 System.Threading.Thread.Sleep(800);
                 System.Threading.Thread.Sleep(800);
-                Console.WriteLine("Congratutions! You have conquered this phase of the game. Great work and may the force be with you!");
+                Console.WriteLine("Congratulations. You have defeated the most evil and vile scum of the galaxy and have returned peace to everyone!");
                 Console.WriteLine("Your life has increased by 50 points");
                 Console.WriteLine("Your max life has increased by 20 points");
                 Console.WriteLine("Your armour has increased by 20 points");
